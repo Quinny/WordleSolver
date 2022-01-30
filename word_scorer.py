@@ -1,7 +1,7 @@
 from collections import Counter
 from multiprocessing import Pool
 
-words = [word.strip() for word in open("five_letter_words.txt").readlines()]
+words = eval(open("five_letter_words.txt").read())
 
 def wordle_score(a, b):
     score = 0
