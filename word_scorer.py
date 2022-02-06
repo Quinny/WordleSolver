@@ -31,4 +31,4 @@ def average_score(candidate):
 if __name__ == "__main__":
     with Pool() as p:
         scored_words = p.map(average_score, words)
-        print(sorted(scored_words, reverse=True))
+        print([word for _, word in sorted(scored_words, reverse=True)])

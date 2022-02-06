@@ -1,4 +1,4 @@
-scored_words = [word for score, word in eval(open("./scored_words.txt").read())]
+scored_words = eval(open("./scored_words.txt").read())
 
 def best_guess(constraints):
     best_word = None
