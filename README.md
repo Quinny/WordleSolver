@@ -4,6 +4,12 @@ A solver for the [wordle](https://www.powerlanguage.co.uk/wordle/) game.
 
 ## How to use
 
+### Web Version
+
+Navigate to http://quinnftw.com/wordle and follow the on screen instructions.
+
+### CLI Version
+
 1. Clone this repo
 1. Run `python3 solver.py`
 1. Use the suggested guess presented
@@ -19,8 +25,8 @@ represents the average information gain that word provides as a guess. The
 information gain is calculated by simulating using the word as a guess for every
 possible secret word.
 
-### solver.py
+### solver.py / app.jsx
 
-`solver.py` uses the information gained from each guess to build a list of
+`solver.py/app.jsx` uses the information gained from each guess to build a list of
 constraints that the secret word must conform to, and then selects the highest
 scoring word which meets those constraints as the suggested guess.
