@@ -47,7 +47,12 @@ function cycleVerdict(verdict, index) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+    document.onkeydown = this.handleKeyDown.bind(this);
+  }
+
+  getInitialState() {
+    return {
       pastGuesses: [],
       pendingGuess: {
         guess: bestGuess([]),
@@ -55,9 +60,8 @@ class App extends React.Component {
       },
       focusedLetter: 0,
       constraints: [],
+      failed: false
     };
-
-    document.onkeydown = this.handleKeyDown.bind(this);
   }
 
   focusLeft() {
@@ -99,6 +103,7 @@ class App extends React.Component {
         verdict: "BBBBB",
       },
       focusedLetter: 0,
+      failed: !newGuess
     }));
   }
 
@@ -125,6 +130,22 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div align="center">
+          <div class="alert alert-danger">
+            No words matched the set of verdicts you input. This either means
+            you entered invalid verdicts or Wordle changed their word list.
+          </div>
+          <button
+            class="btn btn-primary"
+            onClick={e => this.setState(this.getInitialState())}
+          >
+            Restart
+          </button>
+        </div>
+      );
+    }
     var allGuesses = this.state.pastGuesses.concat([this.state.pendingGuess]);
     var rows = allGuesses.map((guess, guessIndex) => {
       var isPendingGuess = guessIndex == allGuesses.length - 1;
@@ -164,6 +185,12 @@ class App extends React.Component {
             <ol>
               <li>Use the word which appears as your guess in Wordle</li>
               <li>Tap each letter to reflect the verdict returned</li>
+              <ul>
+                <li>
+                  If Wordle flagged a letter as both yellow and black, key both
+                  instances as yellow
+                </li>
+              </ul>
               <li>Press "Get Next Guess" and go back to step 1</li>
             </ol>
           </div>
