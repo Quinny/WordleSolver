@@ -1,0 +1,14 @@
+button {
+  margin-left: 10px;
+}
+
+.focused {
+  color: #fff33;
+  font-weight: 900;
+  border: 3px solid red !important;
+}
+
+td {
+  border: 1px solid white !important;
+  text-align: center;
+}
