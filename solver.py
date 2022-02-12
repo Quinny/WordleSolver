@@ -1,3 +1,5 @@
+from multiprocessing import Pool
+
 scored_words = eval(open("./scored_words.txt").read())
 
 def best_guess(constraints):
@@ -52,14 +54,40 @@ def get_constraints(guess, verdict):
             constraints.append(at(letter, index))
     return constraints
 
-def main():
+def get_verdict(guess, secret):
+    def verdict_char(gs):
+        g, s = gs
+        if g == s:
+            return "G"
+        elif g in secret:
+            return "Y"
+        else:
+            return "B"
+    return ''.join(map(verdict_char, zip(guess, secret)))
+
+def solve(secret):
     constraints = []
-    while True:
-        last_guess, viable_candidates = best_guess(constraints)
-        print("Viable candidates:", viable_candidates)
-        print("Suggested guess:", last_guess)
-        verdict = input("Verdict: ")
-        constraints += get_constraints(last_guess, verdict)
+    verdict = "BBBBB"
+    guesses = 0
+    while verdict != "GGGGG":
+        guess, viable_candidates = best_guess(constraints)
+        if secret is None:
+            print("Viable candidates:", viable_candidates)
+            print("Suggested guess:", guess)
+            verdict = input("Verdict: ")
+        else:
+            verdict = get_verdict(guess, secret)
+        constraints += get_constraints(guess, verdict)
+        guesses += 1
+    return guesses
+
+def benchmark():
+    with Pool() as p:
+        return sum(p.map(solve, scored_words)) / len(scored_words)
+
+def main():
+    solve(secret = None)
 
 if __name__ == "__main__":
     main()
+    #print(benchmark())
