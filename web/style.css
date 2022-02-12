@@ -2,13 +2,14 @@ button {
   margin-left: 10px;
 }
 
-.focused {
-  color: #fff33;
-  font-weight: 900;
-  border: 3px solid red !important;
+td {
+  font-weight: 800;
+  font-size: 2em;
+  border: 1px solid #bdbdbd !important;
+  text-align: center;
 }
 
-td {
-  border: 1px solid white !important;
-  text-align: center;
+table {
+  border-collapse: separate;
+  border-spacing: 10px;
 }
