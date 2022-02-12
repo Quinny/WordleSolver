@@ -1,6 +1,7 @@
 # WordleSolver
 
-A solver for the [wordle](https://www.powerlanguage.co.uk/wordle/) game.
+A solver for the [wordle](https://www.powerlanguage.co.uk/wordle/) game. Solves
+all words in an average 3.8 guesses.
 
 ## How to use
 
