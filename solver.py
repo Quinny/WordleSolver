@@ -1,4 +1,7 @@
 from multiprocessing import Pool
+from pprint import pprint
+from collections import Counter
+import math
 
 scored_words = eval(open("./scored_words.txt").read())
 
@@ -83,11 +86,26 @@ def solve(secret):
 
 def benchmark():
     with Pool() as p:
-        return sum(p.map(solve, scored_words)) / len(scored_words)
+        n = len(scored_words)
+        solved = sorted(p.map(solve, scored_words))
+        avg = sum(solved) / n
+        histogram = Counter(solved)
+
+        return {
+            "n": n,
+            "average": avg,
+            "p50": solved[int(n * 0.5)],
+            "p95": solved[int(n * 0.95)],
+            "p99": solved[int(n * 0.99)],
+            "max": max(solved),
+            "min": min(solved),
+            "stddev": math.sqrt(sum((xi - avg) ** 2 for xi in solved) / n),
+            "histogram": histogram.items()
+        }
 
 def main():
     solve(secret = None)
 
 if __name__ == "__main__":
     main()
-    #print(benchmark())
+    #pprint(benchmark())
