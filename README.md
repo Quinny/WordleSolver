@@ -3,6 +3,8 @@
 A solver for the [wordle](https://www.powerlanguage.co.uk/wordle/) game. Solves
 all words in an average 3.8 guesses.
 
+<img width="900" alt="solver" src="https://user-images.githubusercontent.com/4185619/164989120-3569861a-64da-42b4-a729-1a8323d4d1fc.png">
+
 ## How to use
 
 ### Web Version
